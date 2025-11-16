@@ -1,0 +1,230 @@
+/* style2.css - modern, clean chess UI (3 columns in one row) */
+
+/* variables */
+:root{
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa4b2;
+  --accent: #7dd3fc;
+  --accent-2: #60a5fa;
+  --glass: rgba(255,255,255,0.03);
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(2,6,23,0.6);
+  --gap: 18px;
+  --max-width: 1200px;
+}
+
+/* base & layout */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #071028 0%, #07182a 60%);
+  color: #e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:24px;
+}
+
+/* page title */
+h1{
+text-align: center;
+  margin:0 0 18px 0;
+  font-size:20px;
+  letter-spacing:0.2px;
+  color:var(--accent);
+  text-shadow: 0 2px 10px rgba(96,165,250,0.06);
+}
+
+/* outer container centers content and creates space */
+.container{
+  max-width: var(--max-width);
+  margin: 12px auto;
+  display:flex;
+  gap: var(--gap);
+  align-items:flex-start;
+  /* allow wrap on narrow screens */
+  flex-wrap:wrap;
+}
+
+/* Controls column */
+#controls{
+  min-width: 240px;
+  max-width: 280px;
+  width: 26%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.03);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  flex-shrink:0;
+}
+
+/* form element styles inside controls */
+#controls label{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+#controls select, #controls button{
+  width:100%;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color:inherit;
+  font-size:14px;
+  outline:none;
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+#controls select:focus, #controls button:focus{
+  box-shadow: 0 6px 20px rgba(96,165,250,0.12);
+  transform: translateY(-1px);
+}
+#controls button{
+  cursor:pointer;
+  margin-top:6px;
+  font-weight:600;
+}
+
+/* distinct action styles */
+#startBtn{
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#02203a;
+  border:none;
+}
+#undoBtn, #flipBtn{
+  background: transparent;
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+/* main game area (middle + right) — flexible */
+#game-container{
+  flex:1 1 auto;
+  min-width: 420px;
+  display:flex;
+  gap: var(--gap);
+  align-items:flex-start;
+  /* look consistent with controls */
+  background: transparent;
+}
+
+/* board (middle column) */
+#board{
+  flex:1 1 600px;
+  min-width: 320px;
+  max-width: 720px;
+  background: var(--glass);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.5);
+  border: 1px solid rgba(255,255,255,0.03);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ensure chessboard-js fits inside */
+#board .board, #board > .board {
+  width:100% !important;
+  max-width: 640px;
+  height: auto !important;
+}
+
+/* side panel (right column) */
+#side-panel{
+  width: 290px;
+  min-width:200px;
+  flex-shrink:0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+  border:1px solid rgba(255,255,255,0.03);
+  font-size:14px;
+  color: #dbeafc;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* small info blocks */
+#status, #fen, #pgn, #timer{
+  background: rgba(255,255,255,0.02);
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:13px;
+  color:var(--muted);
+  word-break:break-word;
+}
+
+/* captured pieces rows */
+.captured-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:6px 0;
+}
+.cap-title{
+  min-width:90px;
+  font-size:13px;
+  color:var(--muted);
+}
+.cap-list{
+  flex:1;
+  background: rgba(255,255,255,0.01);
+  padding:6px 8px;
+  border-radius:8px;
+  min-height:30px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:#f0f7ff;
+}
+
+/* small responsive tweaks */
+@media (max-width:1100px){
+  :root{ --max-width: 980px; }
+  #controls{ width: 28%; min-width:220px; }
+  #side-panel{ width: 260px; }
+}
+
+@media (max-width:900px){
+  /* stack vertically on small screens */
+  .container{ flex-direction:column; padding:12px; }
+  #controls, #game-container{ width:100%; }
+  #game-container{ flex-direction:column; gap:12px; }
+  #board{ max-width:100%; }
+  #side-panel{ width:100%; }
+}
+
+/* small visual helpers for piece highlighting support (optional) */
+.square-highlight {
+  box-shadow: inset 0 0 0 4px rgba(125,211,252,0.14);
+  border-radius:6px;
+}
+.square-move {
+  box-shadow: inset 0 0 0 4px rgba(96,165,250,0.10);
+  border-radius:6px;
+}
+
+/* Highlight styles */
+    .square-55d63.highlight { background: rgb(202, 255, 202) !important; }
+    .square-55d63 .highlight-dot { position:absolute; left:calc(50% - 6px); top:calc(50% - 6px); width:12px; height:12px; border-radius:50%; pointer-events:none; background: gray; }
+    .square-55d63.last-move { background: rgb(202, 255, 202) !important; }
+
+    /* PIECE HIGHLIGHT (the new effect) */
+    .piece-highlight {
+      /* glow + slight scale for emphasis */
+      transition: box-shadow .14s ease, transform .14s ease;
+      box-shadow: 0 6px 18px rgba(11,116,222,0.35), 0 0 12px rgba(11,116,222,0.25) !important;
+      transform: translateZ(0) scale(1.06);
+      border-radius: 6px;
+      z-index: 9999 !important;
+      /* Use drop-shadow fallback for some browsers */
+      filter: drop-shadow(0 6px 12px rgba(11,116,222,0.28));
+    }

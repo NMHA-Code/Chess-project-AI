@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trò chơi Cờ vua (Piece Highlight)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  
+  <h1>Trò chơi Cờ vua (Piece Highlight)</h1>
+  <div class="container">
+
+
+  <div id="controls">
+    <label>Chế độ chơi:</label>
+    <select id="mode">
+      <option value="pvp">Người vs Người</option>
+      <option value="pvc">Người vs Máy</option>
+    </select>
+
+    <label>Bạn chơi:</label>
+    <select id="playerSide">
+      <option value="white">Trắng</option>
+      <option value="black">Đen</option>
+    </select>
+
+    <label>Độ khó (AI):</label>
+    <select id="difficulty" disabled>
+      <option value="1">Dễ (độ sâu 1)</option>
+      <option value="2">Trung bình (độ sâu 2)</option>
+      <option value="3">Khó (độ sâu 3)</option>
+    </select>
+
+    <label>Tổng thời gian (phút):</label>
+    <select id="time">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+    </select>
+
+    <button id="startBtn">Bắt đầu</button>
+    <button id="undoBtn">Undo</button>
+    <button id="flipBtn">Flip</button>
+  </div>
+
+  <div id="game-container">
+    <div id="board"></div>
+
+    <div id="side-panel">
+      <div id="status">Trạng thái: --</div>
+      <div id="fen">FEN: --</div>
+      <div id="pgn">PGN: --</div>
+      <div id="timer">Thời gian: --</div>
+
+      <hr style="margin:8px 0;">
+      <div class="captured-row">
+        <div class="cap-title">Bị Trắng ăn:</div>
+        <div id="capturedByWhite" class="cap-list">—</div>
+      </div>
+      <div class="captured-row">
+        <div class="cap-title">Bị Đen ăn:</div>
+        <div id="capturedByBlack" class="cap-list">—</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+
+  <script src="index.js">    
+  </script>
+</body>
+</html>
