@@ -22,8 +22,6 @@ html,body{
   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background: linear-gradient(180deg, #071028 0%, #07182a 60%);
   color: #e6eef8;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
   padding:24px;
 }
 
@@ -63,7 +61,11 @@ text-align: center;
   gap:10px;
   flex-shrink:0;
 }
+option{
+  background: var(--bg);
+  color: #fff;
 
+}
 /* form element styles inside controls */
 #controls label{
   font-size:13px;
@@ -116,6 +118,7 @@ text-align: center;
 /* board (middle column) */
 #board{
   flex:1 1 600px;
+
   min-width: 320px;
   max-width: 720px;
   background: var(--glass);
@@ -182,22 +185,30 @@ text-align: center;
   min-height:30px;
   display:flex;
   align-items:center;
+  flex-wrap: wrap;
   gap:6px;
   color:#f0f7ff;
 }
 
 /* small responsive tweaks */
-@media (max-width:1100px){
+@media (max-width:1300px){
   :root{ --max-width: 980px; }
-  #controls{ width: 28%; min-width:220px; }
+  
+  .container{ flex-direction:column; padding:12px; align-items: center; justify-content: center;}
+  #controls{ width: 100%; min-width:220px; 
+  width: 600px;
+  /* max-width: 720px; */
+width: 100%;}
+  
+  #game-container{ flex-direction:column; gap:12px; align-items: center; justify-content: center;}
   #side-panel{ width: 260px; }
 }
 
 @media (max-width:900px){
   /* stack vertically on small screens */
-  .container{ flex-direction:column; padding:12px; }
+  .container{ flex-direction:column; padding:12px; align-items: center; justify-content: center;}
   #controls, #game-container{ width:100%; }
-  #game-container{ flex-direction:column; gap:12px; }
+  #game-container{ flex-direction:column; gap:12px; align-items: center; justify-content: center;}
   #board{ max-width:100%; }
   #side-panel{ width:100%; }
 }
@@ -217,14 +228,11 @@ text-align: center;
     .square-55d63 .highlight-dot { position:absolute; left:calc(50% - 6px); top:calc(50% - 6px); width:12px; height:12px; border-radius:50%; pointer-events:none; background: gray; }
     .square-55d63.last-move { background: rgb(202, 255, 202) !important; }
 
-    /* PIECE HIGHLIGHT (the new effect) */
     .piece-highlight {
-      /* glow + slight scale for emphasis */
       transition: box-shadow .14s ease, transform .14s ease;
       box-shadow: 0 6px 18px rgba(11,116,222,0.35), 0 0 12px rgba(11,116,222,0.25) !important;
       transform: translateZ(0) scale(1.06);
       border-radius: 6px;
       z-index: 9999 !important;
-      /* Use drop-shadow fallback for some browsers */
       filter: drop-shadow(0 6px 12px rgba(11,116,222,0.28));
     }
