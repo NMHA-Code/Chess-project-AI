@@ -5,8 +5,34 @@ var gameOver = false;
 var timerInterval = null;
 var timeLeft = 0;
 var thinking = false;
+// Map dùng để lưu trạng thái bàn cờ nhé, kiểu nút undo ấy
 var tt = new Map();
 
+// chess.fen() dùng để lưu vị trí hiện tại nhé
+// -> 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 2'
+
+//.findPiece
+// Hàm này trả về một danh sách chứa các ô vuông nơi quân cờ được yêu cầu đang nằm.
+// Trả về một danh sách rỗng nếu quân cờ không có trên bàn cờ.
+
+// .get(square)
+// Trả lại giá trị chứa ô vuông, trả lại undefined nếu ô đó trống
+
+//.history([option])
+// Trả ra một danh sách chứa những quân đang duy chuyển trong game, lưu các tham số chi tiết về cờ
+// .move() sẽ mô tả chi tiết di chuyển của cờ
+
+// game_over()
+// Trả lại true nếu hết game 
+
+//.load(fen: string, { skipValidation = false, preserveHeaders = false } = {})
+// Làm sạch bảng và load chuỗi fen đã được cập nhật
+
+// remove()
+// di chuyển và trả về giá trị ô vuông, undefined nếu ô đó trống 
+
+// undo()
+// Lấy lại các nước đã đi từ lưu trữ nhé
 var statusEl = document.getElementById('status');
 var fenEl = document.getElementById('fen');
 var pgnEl = document.getElementById('pgn');
@@ -79,6 +105,7 @@ flipBtn.addEventListener('click', function () {
 });
 
 // ====== Drag/Drop handlers ======
+// khi cầm lên lấy dữ liệu nhé source lưu vị trí cũ (vd: e2), price(vd: wP)
 function onDragStart(source, piece, position, orientation) {
   if (gameOver || game.game_over()) return false;
 
@@ -106,6 +133,7 @@ function onDragStart(source, piece, position, orientation) {
   return true;
 }
 
+// khi thả xuống mới lấy dữ liệu nhé source lưu vị trí cũ (vd: e2), target lưu vị trí mới(vd: e4)
 function onDrop(source, target) {
   clearHighlights();
   var move = game.move({ from: source, to: target, promotion: 'q' });
