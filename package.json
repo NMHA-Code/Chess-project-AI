@@ -1,10 +1,11 @@
 {
   "author": "Chris Oakman <chris@oakmac.com> (http://chrisoakman.com/)",
-  "name": "@chrisoakman/chessboardjs",
-  "description": "JavaScript chessboard widget",
+  "name": "chess-game-ai",
+  "description": "Tro choi Co vua voi AI",
   "homepage": "https://chessboardjs.com",
   "license": "MIT",
   "version": "1.0.0",
+  "main": "main.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/oakmac/chessboardjs.git"
@@ -18,6 +19,8 @@
   },
   "devDependencies": {
     "csso": "3.5.1",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
     "fs-plus": "3.1.1",
     "kidif": "1.1.0",
     "mustache": "2.3.0",
@@ -25,8 +28,36 @@
     "uglify-js": "3.6.0"
   },
   "scripts": {
+    "start": "electron .",
     "build": "standard lib/chessboard.js && node scripts/build.js",
     "standard": "standard --fix lib/*.js website/js/*.js",
-    "website": "node scripts/website.js"
+    "website": "node scripts/website.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.chess.game",
+    "productName": "Chess Game AI",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!node_modules/.cache/**/*",
+      "!**/*.map",
+      "!.git/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "img/chesspieces/wikipedia/wK.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "img/chesspieces/wikipedia/wK.png",
+      "uninstallerIcon": "img/chesspieces/wikipedia/wK.png"
+    }
   }
 }
